@@ -24,6 +24,4 @@ Explanation of purpose of each code file :
 9) BC_Web3.py : Code for collecting and calculating attack data for incident analysis, its interaction/integration with blockchain and webpage using ngrok and web3.js. 
 10) Cyber+Incident+Response+-+Generic+Denial+of+Service+Playbook+v2.3.pdf : A DDoS incident response playbook written by the organisation, NCC group, according to which attack information required for investigation is calculated.   
 11) DDoS_Stats.png : Image of a pie graph showing 2023 Q2 Statistics for types of DDoS attack incidents that have occurred during the second quarter of 2023, according to medium.com. Full source reference : https://qratorlabs.medium.com/q2-2023-ddos-attacks-statistics-and-overview-698682abf508
-12) output.pdf : Output screenshots of the project.
 
-NOTE : PROJECT FILES ARE PROVIDED AS A ZIP FILE. DOWNLOAD AND UNZIP.
