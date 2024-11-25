@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDoS Attack Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8; /* Light background color */
+            color: #333; /* Dark text color */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #4A90E2; /* Header color */
+        }
+
+        .summary {
+            background-color: #fff; /* White background for the summary box */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 20px;
+            width: 90%; /* Set a width for the summary box */
+            max-width: 600px; /* Maximum width */
+        }
+
+        p {
+            font-size: 1.2em; /* Increased font size */
+            margin: 10px 0; /* Space between paragraphs */
+        }
+
+        strong {
+            color: #4A90E2; /* Color for labels */
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>DDoS Attack Summary</h1>
+    <div class="summary">
+        <p><strong>Host Being Targeted:</strong> <span id="targetIP"></span></p>
+        <p><strong>Volume of Malicious Traffic:</strong> <span id="packetCount"></span> packets</p>
+        <p><strong>Impact on Network Resources:</strong> <span id="bandwidthImpact"></span> bytes</p>
+        <p><strong>Nature of the Attack:</strong> <span id="attackPattern"></span></p>
+        <p><strong>Methodology of the Attack:</strong> <span id="spreadPattern"></span></p>
+        <p><strong>Initial Detection Time:</strong> <span id="detectionStartTime"></span></p>
+        <p><strong>Conclusion of the Attack:</strong> <span id="detectionEndTime"></span></p>
+    </div>
+    <script>
+        // Connect to Ganache
+        const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+
+        // Contract details
+        const contractAddress = '0x7C22e279a30EE515273Eee25Ae709E0D82a624c7';
+        const contractABI = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_targetIP",
+				"type": "string"
+			},
+			{
+				"name": "_packetCount",
+				"type": "string"
+			},
+			{
+				"name": "_bandwidthImpact",
+				"type": "string"
+			},
+			{
+				"name": "_attackPattern",
+				"type": "string"
+			},
+			{
+				"name": "_spreadPattern",
+				"type": "string"
+			},
+			{
+				"name": "_detectionStartTime",
+				"type": "string"
+			},
+			{
+				"name": "_detectionEndTime",
+				"type": "string"
+			}
+		],
+		"name": "logAttackSummary",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAttackSummary",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "summary",
+		"outputs": [
+			{
+				"name": "targetIP",
+				"type": "string"
+			},
+			{
+				"name": "packetCount",
+				"type": "string"
+			},
+			{
+				"name": "bandwidthImpact",
+				"type": "string"
+			},
+			{
+				"name": "attackPattern",
+				"type": "string"
+			},
+			{
+				"name": "spreadPattern",
+				"type": "string"
+			},
+			{
+				"name": "detectionStartTime",
+				"type": "string"
+			},
+			{
+				"name": "detectionEndTime",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+
+        // Function to fetch and display data
+        async function fetchSummary() {
+            const contract = new web3.eth.Contract(contractABI, contractAddress);
+            const summary = await contract.methods.getAttackSummary().call();
+
+            document.getElementById('targetIP').innerText = summary[0];
+            document.getElementById('packetCount').innerText = summary[1];
+            document.getElementById('bandwidthImpact').innerText = summary[2];
+            document.getElementById('attackPattern').innerText = summary[3];
+            document.getElementById('spreadPattern').innerText = summary[4];
+            document.getElementById('detectionStartTime').innerText = summary[5];
+            document.getElementById('detectionEndTime').innerText = summary[6];
+        }
+
+        // Fetch summary on load
+        window.onload = async () => {
+            await fetchSummary();
+        };
+    </script>
+</body>
+</html>
